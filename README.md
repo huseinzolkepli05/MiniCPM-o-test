@@ -57,7 +57,7 @@ def main():
 While if not warmup,
 
 ```
-Wrote output.wav to /home/husein/ssd4/mle-take-home/output.wav with length 1.9626666666666666
+Wrote output.wav to mle-take-home/output.wav with length 1.9626666666666666
 Total time taken: 6.996136690999997
 Time to first byte: 6.143056928999997
 Realtime Factor: 3.564607689028531
