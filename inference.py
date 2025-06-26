@@ -28,7 +28,7 @@ minicpm_inference_engine_image = (
         "torchvision==0.20.1",
     )
     .run_commands(  # add flash-attn
-        "CXX=g++ pip install flash-attn==2.5.8 --no-build-isolation"
+        "CXX=g++ pip install flash-attn==2.7.3 --no-build-isolation"
     )
     # Install general AI dependencies
     .pip_install(
@@ -141,11 +141,8 @@ def main():
 
     sf.write(PARENT_DIR / "output.wav", result["audio_array"], result["sample_rate"])
     audio_duration_seconds = len(result["audio_array"]) / result["sample_rate"]
-    print(f"Wrote output.wav to {PARENT_DIR / 'output.wav'}")
+    print(f"Wrote output.wav to {PARENT_DIR / 'output.wav'} with length {audio_duration_seconds}")
+    print(f"Total time taken: {result['total_time']}")
     print(f"Time to first byte: {result['time_to_first_byte']}")
     print(f"Realtime Factor: {result['total_time'] / audio_duration_seconds}")
-            
-
-
-
 

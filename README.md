@@ -26,6 +26,41 @@ modal run inference.py
 ## Result
 
 ```
+Wrote output.wav to mle-take-home/output.wav with length 2.3893333333333335
+Total time taken: 2.7777853730000004
+Time to first byte: 1.5479438859999988
+Realtime Factor: 1.1625775835658483
+```
+
+What I did only add warmup,
+
+```python
+@app.local_entrypoint()
+def main():
+    engine = MinicpmInferenceEngine()
+    
+    # warmup
+    engine.run.remote("Hi, how are you? testing testing")
+    
+    # actual running
+    result = engine.run.remote("Hi, how are you?")
+
+    PARENT_DIR = Path(__file__).parent
+
+    sf.write(PARENT_DIR / "output.wav", result["audio_array"], result["sample_rate"])
+    audio_duration_seconds = len(result["audio_array"]) / result["sample_rate"]
+    print(f"Wrote output.wav to {PARENT_DIR / 'output.wav'}")
+    print(f"Time to first byte: {result['time_to_first_byte']}")
+    print(f"Realtime Factor: {result['total_time'] / audio_duration_seconds}")
+```
+
+While if not warmup,
+
+```
+Wrote output.wav to /home/husein/ssd4/mle-take-home/output.wav with length 1.9626666666666666
+Total time taken: 6.996136690999997
+Time to first byte: 6.143056928999997
+Realtime Factor: 3.564607689028531
 ```
 
 ## What I learnt
